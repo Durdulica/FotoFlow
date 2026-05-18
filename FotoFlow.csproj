@@ -7,4 +7,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Comments\" />
+    <Folder Include="Likes\" />
+    <Folder Include="Follows\" />
+    <Folder Include="Data\" />
+    <Folder Include="PhotoTags\" />
+    <Folder Include="Tags\" />
+    <Folder Include="Photos\" />
+  </ItemGroup>
+
 </Project>
