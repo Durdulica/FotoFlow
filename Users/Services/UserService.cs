@@ -8,7 +8,7 @@ namespace FotoFlow.Users.Services
         List<User> users = new List<User>();
 
         public UserService() {
-            //ReadUsers();
+            ReadUsers();
         }
 
         //Finders
@@ -61,11 +61,7 @@ namespace FotoFlow.Users.Services
         public UserCreateResponse CreateUser(UserCreateRequest request) {
             User newUser = new();
 
-            newUser.Name = request.Name;
-            newUser.Email = request.Email;
-            newUser.Age = request.Age;
-            newUser.Password = request.Password;
-            
+            newUser.Create(request);
             users.Add(newUser);
 
             return UserToUserCreateResponse(newUser);
@@ -91,10 +87,7 @@ namespace FotoFlow.Users.Services
                 throw new ArgumentException("Userul pe care incercati sa il modificati nu exista");
             }
 
-            user.Name = request.Name;
-            user.Email = request.Email;
-            user.Age = request.Age;
-            user.Password = request.Password;
+            user.Update(request);
 
             return UserToUserUpdateResponse(user);
         }
@@ -109,17 +102,7 @@ namespace FotoFlow.Users.Services
             string list = "";
             for (int i = 0; i < users.Count; i++)
             {
-                
-                if (i + 1 == users.Count)
-                {
-                    list += users[i].Id + "," + users[i].Name + "," + users[i].Email + "," + users[i].Age 
-                        + "," + users[i].Password + "," + users[i].CreatedAt.ToString("dd-MM-yyyy");
-                }
-                else
-                {
-                    list += users[i].Id + "," + users[i].Name + "," + users[i].Email + "," + users[i].Age 
-                        + "," + users[i].Password + "," + users[i].CreatedAt.ToString("dd-MM-yyyy") + "\n";
-                }
+                list += users[i].ToText(i, users.Count);
             }
             return list;
         }

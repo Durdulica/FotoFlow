@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FotoFlow.Users.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace FotoFlow.Users.Models
         private int age;
         private string password;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public bool isVerified { get; set; }
 
         //Constructors
 
@@ -35,12 +37,12 @@ namespace FotoFlow.Users.Models
         public User(string text)
         {
             string[] cuv = text.Split(',');
-            Id = Guid.Parse(cuv[0]);
-            Name = cuv[1];
-            Email = cuv[2];
-            Age = Int32.Parse(cuv[3]);
-            Password = cuv[4];
-            CreatedAt = DateTime.Now;
+            Id = Guid.Parse(cuv[1]);
+            Name = cuv[2];
+            Email = cuv[3];
+            Age = Int32.Parse(cuv[4]);
+            Password = cuv[5];
+            CreatedAt = DateTime.Parse(cuv[6]);
         }
 
         //Incapsulare
@@ -159,6 +161,48 @@ namespace FotoFlow.Users.Models
 
                 password = value;
             }
+        }
+
+        //Functions
+
+        public virtual string ToText(int cnt, int size)
+        {
+            string list = "";
+            if (cnt + 1 == size)
+            {
+                list += "USER," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("dd-MM-yyyy");
+            }
+            else
+            {
+                list += "USER," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("dd-MM-yyyy") + '\n';
+            }
+            return list;
+        }
+
+        public virtual void Create(UserCreateRequest request)
+        {
+            Name = request.Name;
+            Email = request.Email;
+            Age = request.Age;
+            Password = request.Password;
+        }
+
+        public virtual void Update(UserUpdateRequest request)
+        {
+            Name = request.Name;
+            Email = request.Email;
+            Age = request.Age;
+            Password = request.Password;
+        }
+
+        public virtual string GetProfileBadge()
+        {
+            return "👤";
+        }
+
+        public virtual void ShowInfo()
+        {
+            Console.WriteLine($"User: {Name}, Email: {Email}, Age: {Age}, Created at: {CreatedAt}, Password: {Password}");
         }
     }
 }
