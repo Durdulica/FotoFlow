@@ -34,20 +34,10 @@ namespace FotoFlow.Users.Models
 
         //Functions
 
-        public override string ToText(int cnt, int size)
+        public override string ToString()
         {
-            string list = "";
-            if (cnt + 1 == size)
-            {
-                list += "BUSINESS," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("dd-MM-yyyy")
-                    + "," + BusinessName + "," + TaxId + "," + Website;
-            }
-            else
-            {
-                list += "BUSINESS," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("dd-MM-yyyy")
-                    + "," + BusinessName + "," + TaxId + "," + Website + '\n';
-            }
-            return list;
+            return "BUSINESS," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("yyyy-MM-dd")
+                + "," + BusinessName + "," + TaxId + "," + Website;
         }
 
         public override string GetProfileBadge()

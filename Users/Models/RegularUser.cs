@@ -30,23 +30,13 @@ namespace FotoFlow.Users.Models
 
         //Functions
 
-        public override string ToText(int cnt, int size)
+        public override string ToString()
         {
-            string list = "";
-            if (cnt + 1 == size)
-            {
-                list += "REGULAR," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," 
-                    + CreatedAt.ToString("dd-MM-yyyy") + "," + Bio + "," + AvatarUrl;
-            }
-            else
-            {
-                list += "REGULAR," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," 
-                    + CreatedAt.ToString("dd-MM-yyyy") + "," + Bio + "," + AvatarUrl + '\n';
-            }
-            return list;
+            return "REGULAR," + Id + "," + Name + "," + Email + "," + Age + "," + Password + ","
+                + CreatedAt.ToString("yyyy-MM-dd") + "," + Bio + "," + AvatarUrl;
         }
 
-        public virtual string GetProfileBadge()
+        public override string GetProfileBadge()
         {
             return base.GetProfileBadge();
         }

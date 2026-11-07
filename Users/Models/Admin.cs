@@ -10,33 +10,26 @@ namespace FotoFlow.Users.Models
 
         public Admin() : base() { }
 
-        public Admin(string name, string email, int age, string password) : base(name, email, age, password)
+        public Admin(string name, string email, int age, string password, int adminLevel) : base(name, email, age, password)
         {
-
+            AdminLevel = adminLevel;
         }
 
         public Admin(string text) : base(text) 
         {
-            string[] cuv = text.Split(',');    
+            string[] cuv = text.Split(',');
+            AdminLevel = Int32.Parse(cuv[7]);
         }
 
         //Functions
 
-        public override string ToText(int cnt, int size)
+        public override string ToString()
         {
-            string list = "";
-            if (cnt + 1 == size)
-            {
-                list += "ADMIN," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("dd-MM-yyyy");
-            }
-            else
-            {
-                list += "ADMIN," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("dd-MM-yyyy") + '\n';
-            }
-            return list;
+            return "ADMIN," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("yyyy-MM-dd")
+                + "," + AdminLevel;
         }
 
-        /* public override void Create(AdminCreateRequest request)
+        /*public override void Create(AdminCreateRequest request)
          {
              Name = request.Name;
              Email = request.Email;

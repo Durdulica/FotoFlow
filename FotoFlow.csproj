@@ -9,12 +9,10 @@
 
   <ItemGroup>
     <Folder Include="Comments\" />
-    <Folder Include="Follows\" />
     <Folder Include="Likes\" />
     <Folder Include="Data\" />
     <Folder Include="PhotoTags\" />
     <Folder Include="Tags\" />
-    <Folder Include="Photos\" />
   </ItemGroup>
 
 </Project>

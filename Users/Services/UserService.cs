@@ -1,25 +1,29 @@
-﻿using FotoFlow.Users.Dtos;
+﻿    using FotoFlow.Users.Dtos;
 using FotoFlow.Users.Models;
 
 namespace FotoFlow.Users.Services
 {
     public class UserService
     {
-        List<User> users = new List<User>();
+        UserRepository userRepository;
 
         public UserService() {
-            ReadUsers();
+           
+            userRepository = new UserRepository();
         }
 
         //Finders
 
-        User FindById(Guid id)
+        public User FindById(Guid id)
         {
-            foreach (var user in users)
+            User user = userRepository.FindById(id);
+
+            if (user == null)
             {
-                if (user.Id == id) return user;
+                throw new ArgumentException("Userul cu acest id nu exista");
             }
-            return null;
+
+            return user;
         }
 
         //Mappers
@@ -55,67 +59,59 @@ namespace FotoFlow.Users.Services
 
         public List<User> getUsers
         {
-            get { return users; }
+            get { return userRepository.GetUsers; }
         }
 
-        public UserCreateResponse CreateUser(UserCreateRequest request) {
-            User newUser = new();
-
-            newUser.Create(request);
-            users.Add(newUser);
-
-            return UserToUserCreateResponse(newUser);
-        }
-
-        private void ReadUsers()
+        public UserCreateResponse CreateUser(UserCreateRequest request)
         {
-            string path = Path.Combine("..", "..", "..", "Data", "users.txt");
-            using (var reader = new StreamReader(path))
+            if (request == null)
             {
-                string line = "";
-                while ((line = reader.ReadLine()) != null)
-                {
-                    users.Add(new User(line));
-                }
+                throw new ArgumentException("Requestul dat este null");
             }
+
+            return UserToUserCreateResponse(userRepository.CreateUser(request));
+        }
+
+        public void ReadUsers()
+        {
+            userRepository.Load();
         }
 
         public UserUpdateResponse UpdateUser(Guid id, UserUpdateRequest request) {
-            User user = FindById(id);
+            if(request == null)
+            {
+                throw new ArgumentException("Requestul dat este null");
+            }
+
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("Id-ul este null");
+            }
+
+            User user = userRepository.UpdateUser(id, request);
 
             if (user == null) {
                 throw new ArgumentException("Userul pe care incercati sa il modificati nu exista");
             }
 
-            user.Update(request);
-
             return UserToUserUpdateResponse(user);
         }
 
         public void DeleteUser(Guid id) {
-            User user = FindById(id);
-            users.Remove(user);
+            if (FindById(id) == null) {
+                throw new ArgumentException("Userul pe care incercati sa il stergeti nu exista");
+            }
+            userRepository.DeleteUser(id);
         }
 
-        public string UserListToString()
+        public override string ToString()
         {
-            string list = "";
-            for (int i = 0; i < users.Count; i++)
-            {
-                list += users[i].ToText(i, users.Count);
-            }
-            return list;
+            return userRepository.ToString();
         }
 
         public void Save()
         {
-            string path = Path.Combine("..", "..", "..", "Data", "users.txt");
-
-            using (var writer = new StreamWriter(path))
-            {
-                string list = UserListToString();
-                writer.Write(list);
-            }
+            userRepository.Save();
         }
     }
 }

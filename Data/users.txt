@@ -1,1 +1,5 @@
-USER,7f069255-2e5a-4f58-934c-961cd9ab447c,Stefan,stefanel.scarlat@gmail.com,18,123abcd!,20-05-2026
+USER,7f069255-2e5a-4f58-934c-961cd9ab447c,Stefan,scarlat@gmail.com,18,123abcd!,2026-05-20
+ADMIN,7b78b29c-914a-4c4a-9275-86762516c3be,Puscas,puscas@gmail.com,30,puscaEbomba123!,2023-11-23,0
+REGULAR,dbdffa13-7b2d-4251-9573-8e69594d9f19,Alexutu,alex@yahoo.com,20,alexRupe@493,2025-10-14,eu sunt alex,test.com
+CREATOR,7f14e670-c46e-4a8b-a7dd-7deeadd7c9be,Raisa,raisa@hotmail.com,16,deCeEu4$2,2022-05-12,test,True,,1999
+BUSINESS,366b1330-ede6-4423-86e5-42ac0e809826,Ralph,exemplu@gmail.com,30,abcde12$,2024-03-30,THE FUTURE,RO12345678,test

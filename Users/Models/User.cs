@@ -165,18 +165,9 @@ namespace FotoFlow.Users.Models
 
         //Functions
 
-        public virtual string ToText(int cnt, int size)
+        public override string ToString()
         {
-            string list = "";
-            if (cnt + 1 == size)
-            {
-                list += "USER," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("dd-MM-yyyy");
-            }
-            else
-            {
-                list += "USER," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("dd-MM-yyyy") + '\n';
-            }
-            return list;
+            return "USER," + Id + "," + Name + "," + Email + "," + Age + "," + Password + "," + CreatedAt.ToString("yyyy-MM-dd");
         }
 
         public virtual void Create(UserCreateRequest request)
